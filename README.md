@@ -18,7 +18,7 @@
   - [ ] 1. public ALHeap()
   - [ ] 2. public String toString
   - [ ] 3. public boolean isEmpty()
-  - [ ] 4. public Integer peekMin
+  - [ ] 4. public Integer peekMin()
   - [ ] 5. public void add (Integer addVal)
   - [ ] 6. private minChildPos(int pos)
   - [ ] 7. public Integer removeMin()
