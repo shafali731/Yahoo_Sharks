@@ -10,12 +10,12 @@ public class ALHeap
 {
 
   //instance vars
-  private ArrayList<Integer> _heap; 
+  private ArrayList<Integer> _heap;
 
   /*****************************************************
    * default constructor  ---  inits empty heap
    *****************************************************/
-  public ALHeap() 
+  public ALHeap()
   {
       _heap = new ArrayList<Integer>();
   }
@@ -24,11 +24,11 @@ public class ALHeap
 
   /*****************************************************
    * toString()  ---  overrides inherited method
-   * Returns either 
+   * Returns either
    * a) a level-order traversal of the tree (simple version)
    * b) ASCII representation of the tree (more complicated, more fun)
    *****************************************************/
-  public String toString() 
+  public String toString()
   {
       String retStr = "";
       int level = 1;
@@ -65,7 +65,7 @@ public class ALHeap
 
 
   /*****************************************************
-   * add(Integer) 
+   * add(Integer)
    * Inserts an element in the heap
    * Postcondition: Tree exhibits heap property.
    * Algorithm:
@@ -74,11 +74,11 @@ public class ALHeap
    * Repeat the previous step until the Integer reaches the root or it is bigger than the parent
    *****************************************************/
   public void add( Integer addVal )
-  {      
+  {
       if(_heap.size() == 0) {
 	  _heap.add(addVal);
       }
-    
+
       _heap.add(addVal); //insert integer at the end
       int current = _heap.size() - 1;
 
@@ -87,8 +87,8 @@ public class ALHeap
 	  swap(current , (current - 1) / 2);
 	  current = (current - 1) / 2;
       }
-    
-	  
+
+
   }//O(logn)
 
 
@@ -100,27 +100,74 @@ public class ALHeap
    * Replace the last value in the ArrayList with the first value. We wanted to swap the root with the last element because that costs minimum run time O(1) if we were to remove it
    * Remove the last value (aka. the original root)
    * Keep on comparing and swapping the current root with the children nodes.
-           If bigger than child, keep traversing down 
-           If smaller than child, algorithm ends 
+           If bigger than child, keep traversing down
+           If smaller than child, algorithm ends
    *****************************************************/
   public Integer removeMin()
   {
-      return new Integer(5);
-      
-  }//O(?)
+    if ( isEmpty() )
+  	    return null;
+
+    Integer ret = peekMin();
+
+    Integer temp = _heap.get( _heap.size() - 1);
+  	swap( 0, _heap.size() - 1 );
+  	_heap.remove( _heap.size() - 1);
+
+  	int pos = 0;
+  	int minC;
+
+  	while( pos < _heap.size() ) {
+  	    minC = minChildPos(pos);
+  	    if ( minC == -1 ) {
+  		      break;
+  	    }
+  	    else if ( temp <= _heap.get(minC) ){
+  		      break;
+  	    }
+  	    else {
+  		      swap( pos, minC);
+  		        pos = minC;
+  	    }
+  	}
+  	return ret;
+
+  }//O(logn)
 
 
   /*****************************************************
    * minChildPos(int)  ---  helper fxn for removeMin()
-   * Returns index of least child, or 
+   * Returns index of least child, or
    * -1 if no children, or if input pos is not in ArrayList
    * Postcondition: Tree unchanged
    *****************************************************/
   private int minChildPos( int pos )
   {
-      return 5;
-  }//O(?)
-  
+    int ret;
+    int lc = 2*pos + 1;
+    int rc = 2*pos + 2;
+
+    if ( pos >= _heap.size() || pos < 0 ){
+      ret = -1;
+    }
+    else if (lc >= _heap.size()){
+      return -1;
+    }
+    else if ( rc >= _heap.size() ){
+      ret = lc;
+    }
+    else if (lc>= _heap.size()){
+      ret = rc;
+    }
+    else if ( _heap.get(rc) < (_heap.get(lc)) ){
+      ret = rc;
+    }
+    else{
+      ret = lc;
+    }
+    return ret;
+  }//O(1)
+
 
   //************ aux helper fxns ***************
   private Integer minOf( Integer a, Integer b )
@@ -134,7 +181,7 @@ public class ALHeap
   //swap for an ArrayList
   private void swap( int pos1, int pos2 )
   {
-    _heap.set( pos1, _heap.set( pos2, _heap.get(pos1) ) );	
+    _heap.set( pos1, _heap.set( pos2, _heap.get(pos1) ) );
   }
   //********************************************
 
@@ -166,9 +213,8 @@ public class ALHeap
       System.out.println(pile);
       pile.add(9);
       System.out.println(pile);
-    
 
-/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
       System.out.println("removing " + pile.removeMin() + "...");
       System.out.println(pile);
       System.out.println("removing " + pile.removeMin() + "...");
@@ -191,6 +237,8 @@ public class ALHeap
       System.out.println(pile);
       System.out.println("removing " + pile.removeMin() + "...");
       System.out.println(pile);
+      /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
       ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
   }//end main()
 
