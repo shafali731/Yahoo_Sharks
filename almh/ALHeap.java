@@ -55,6 +55,10 @@ public class ALHeap
    * add(Integer) 
    * Inserts an element in the heap
    * Postcondition: Tree exhibits heap property.
+   * Algorithm:
+   * Insert the Integer at the end of the arrayList
+   * Keep moving up the tree (aka. swap with the parent node) if it's less
+   * Repeat the previous step until the Integer reaches the root or it is bigger than the parent
    *****************************************************/
   public void add( Integer addVal )
   { 
@@ -65,6 +69,12 @@ public class ALHeap
    * removeMin()  ---  means of removing an element from heap
    * Removes and returns least element in heap.
    * Postcondition: Tree maintains heap property.
+   * Algorithm:
+   * Replace the last value in the ArrayList with the first value. We wanted to swap the root with the last element because that costs minimum run time O(1) if we were to remove it
+   * Remove the last value (aka. the original root)
+   * Keep on comparing and swapping the current root with the children nodes.
+           If bigger than child, keep traversing down 
+           If smaller than child, algorithm ends 
    *****************************************************/
   public Integer removeMin()
   { 
