@@ -16,7 +16,8 @@ public class ALHeap
    * default constructor  ---  inits empty heap
    *****************************************************/
   public ALHeap() 
-  { 
+  {
+      _heap = new ArrayList<Integer>();
   }
 
 
@@ -28,8 +29,18 @@ public class ALHeap
    * b) ASCII representation of the tree (more complicated, more fun)
    *****************************************************/
   public String toString() 
-  { 
-  }//O(?)
+  {
+      String retStr = "";
+      int level = 1;
+      for (int i = 0; i < _heap.size(); i++) {
+	  if(i == Math.pow(2,level) - 1) {
+	      retStr += "\n";
+	      level++;
+	  }
+	  retStr += _heap.get(i) + " ";
+      }
+      return retStr + "\n";
+  }//O(n)
 
 
   /*****************************************************
@@ -37,8 +48,9 @@ public class ALHeap
    * Returns true if no meaningful elements in heap, false otherwise
    *****************************************************/
   public boolean isEmpty()
-  { 
-  }//O(?)
+  {
+      return _heap.isEmpty();
+  }//O(1)
 
 
   /*****************************************************
@@ -47,8 +59,9 @@ public class ALHeap
    * Postcondition: Heap remains unchanged.
    *****************************************************/
   public Integer peekMin()
-  { 
-  }//O(?)
+  {
+      return _heap.get(0);
+  }//O(1)
 
 
   /*****************************************************
@@ -61,8 +74,22 @@ public class ALHeap
    * Repeat the previous step until the Integer reaches the root or it is bigger than the parent
    *****************************************************/
   public void add( Integer addVal )
-  { 
-  }//O(?)
+  {      
+      if(_heap.size() == 0) {
+	  _heap.add(addVal);
+      }
+    
+      _heap.add(addVal); //insert integer at the end
+      int current = _heap.size() - 1;
+
+      //keep swapping when current is less than parent
+      while(addVal < _heap.get((current - 1) / 2)) {  //thanks coiffe
+	  swap(current , (current - 1) / 2);
+	  current = (current - 1) / 2;
+      }
+    
+	  
+  }//O(logn)
 
 
   /*****************************************************
@@ -77,7 +104,9 @@ public class ALHeap
            If smaller than child, algorithm ends 
    *****************************************************/
   public Integer removeMin()
-  { 
+  {
+      return new Integer(5);
+      
   }//O(?)
 
 
@@ -88,7 +117,8 @@ public class ALHeap
    * Postcondition: Tree unchanged
    *****************************************************/
   private int minChildPos( int pos )
-  { 
+  {
+      return 5;
   }//O(?)
   
 
@@ -113,7 +143,7 @@ public class ALHeap
   //main method for testing
   public static void main( String[] args )
   {
-    /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
       ALHeap pile = new ALHeap();
 
       pile.add(2);
@@ -136,7 +166,9 @@ public class ALHeap
       System.out.println(pile);
       pile.add(9);
       System.out.println(pile);
+    
 
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
       System.out.println("removing " + pile.removeMin() + "...");
       System.out.println(pile);
       System.out.println("removing " + pile.removeMin() + "...");
