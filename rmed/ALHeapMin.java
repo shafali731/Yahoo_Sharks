@@ -83,7 +83,7 @@ public class ALHeapMin
       int current = _heap.size() - 1;
 
       //keep swapping when current is less than parent
-      while(addVal < _heap.get((current - 1) / 2)) {  //thanks coiffe
+      while(addVal.compareTo( _heap.get((current - 1) / 2)) < 0) {  
 	  swap(current , (current - 1) / 2);
 	  current = (current - 1) / 2;
       }
@@ -108,7 +108,7 @@ public class ALHeapMin
       if ( isEmpty() )
 	  return null;
 
-      //store root value
+      //store root value 
       Integer ret = peekMin();
 
       Integer temp = _heap.get( _heap.size() - 1);
