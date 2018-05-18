@@ -77,6 +77,7 @@ public class RunMed {
 	    System.out.println("Current median: " + test.getMedian());
 	}
 
+	System.out.println("----------------------------------------- \n");
 	RunMed test1 = new RunMed();
 	//15 addition
 	for (int j = 0; j < 15; j++) {
