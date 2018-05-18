@@ -2,10 +2,10 @@
  * Class runMed
  * calculates running median of input stream of Integers by using a min and max heap
 
- * Algorithm for RunMed: 
+ * Algorithm for RunMed:
  * 1. If nextValue < root of maxheap. Add to maxheap. Else: add to min heap
  * 2. Balance heaps if size difference >=  2: Remove from larger heap, add to smaller heap until balances
- * 3. at any find med by 
+ * 3. at any find med by
        a. heap size equal: med is the mean of the roots
        b. heap size unequal: return root of max heap
  *****************************************************/
@@ -41,13 +41,28 @@ public class RunMed {
 	else if (lilVals.getSize() > bigVals.getSize()) {
 	    return lilVals.peekMax();
 	}
-	return bigVals.peekMin();	
+	return bigVals.peekMin();
     }
 
     //adds to the appropriate heap
     //balance the heap if size difference > 1 --> def of complete tree
     public void add(Integer newVal) {
-	//to be implemented
+      if (lilVals.isEmpty()){
+        lilVals.add(newVal);
+      }
+      else if(newVal < lilVals.peekMax()){
+          lilVals.add(newVal);
+        }
+      else{
+          bigVals.add(newVal);
+        }
+      int sizeDiff = Math.abs(bigVals.getSize() - lilVals.getSize());
+      if (sizeDiff>1) {
+          if (lilVals.getSize() < bigVals.getSize())
+                lilVals.add(bigVals.removeMin());
+          else
+                bigVals.add(lilVals.removeMax());
+      }
     }
 
     public static void main(String[] args) {
@@ -72,11 +87,10 @@ public class RunMed {
 
 	    System.out.println("Current median: " + test1.getMedian());
 	}
-	    
+
     }
 
-	
-    
-	
+
+
+
 }
-    
